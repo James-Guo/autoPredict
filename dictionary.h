@@ -1,25 +1,27 @@
 #pragma once
-#include "AVL_ADT.h"
 #include <string>
-#include <iostream>
-
 using namespace std;
 
-struct DATA
-{
-	string key;
-	int data;
-};
+#include "AVL_ADT_EXT.h"
+
 
 
 class Dictionary
 {
+private:
+
 public:
 	void addToDictionary();
-	AvlTree<DATA, string> _dictionary;
+	string trim(string input);
+	AvlTreeExt<DATA, string> _dictionary;
 	void printDictionary();
 	void printMetaData();
 	void search(string input);
+
+	void importDictionary();
+	
+
+	void exportDictionary();
 	
 
 

@@ -1,37 +1,39 @@
 // ConsoleApplication1.cpp : Defines the entry point for the console application.
 
-#include "AVL_ADT.h"
+
 #include <string>
 #include <iostream>
-#include "dictionary.h"
-#include "predict.h"
+#include <iomanip>
+
+#include <queue>
+
+#include <sstream>
+
+#include <fstream>
+
+#include <vector>
+
 
 using namespace std;
 
+#include "AVL_ADT.h"
+#include "dictionary.h"
+#include "predict.h"
 
-void print(DATA ss) {
-	cout << ss.key << ": " << ss.data << endl;
-
-}
+//void print(DATA ss) {
+//	cout << ss.key << ": " << ss.data << endl;
+//
+//}
 
 int main()
 {
 	Predict p;
-	p.predictWord();
-
-
-	//Dictionary d;
-	//d.addToDictionary();
-	//string input = "St";
-	//d.search(input);
-	//d.addToDictionary();
-	//
-	//d.printDictionary();
-	//d.printMetaData();
-
-
-
-
+	p.printMenu();
+	// p.predictWord();
+	//p._dictionary.exportDictionary();
+	// p._dictionary.importDictionary();
+	//p.predictWord();
+	//p._dictionary.printDictionary();
 
 	return 0;
 }

@@ -6,8 +6,9 @@ class Predict
 {
 
 public:
-	Predict();
+	
 	void predictWord();
+	void printMenu();
 
 	Dictionary _dictionary;
 

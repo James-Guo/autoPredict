@@ -1,8 +1,9 @@
 //Recode by Dongmo Zhang on 9/10/2011
 #pragma once
 
-#include <iostream>
-#include <iomanip> 
+#include <queue>
+#include <iomanip>
+
 
 using namespace std;
 
@@ -21,11 +22,16 @@ struct NODE
 	 int     bal;
 	} ; // NODE
 
+
+
+
+
+
 // Class Declaration
 template <class TYPE, class KTYPE> 
 class AvlTree
 	{
-	 private: 
+	 protected: 
 	    int          count;
 	    NODE<TYPE>  *tree;
 
@@ -65,11 +71,7 @@ class AvlTree
 
 
 		// Test
-		// void _traversal(void(*process)(TYPE dataproc), void *input,
-		// 	NODE<TYPE> *root);
 
-		//void prints_an_int(void *data);
-		//void takes_a_function(void(*f)(void *), void *data);
 
 	 public:
 	          AvlTree (void);
@@ -82,19 +84,10 @@ class AvlTree
 	    void  AVL_Traverse_postorder (void (*process)(TYPE  dataProc)); //in-order
 	    bool  AVL_Empty    (void);
 	    bool  AVL_Full     (void);
-	    int   AVL_Count    (void);		
-		bool  AVL_RetrieveInsert(KTYPE   key, TYPE& dataOut);
+	    int   AVL_Count    (void);					
 
 		
-		// Test
-		void _traversal(NODE<TYPE>* root, string input);
-		void search(string input);
 
-		// Test
-		// void AVL_Traverse(void(*process)(TYPE dataProc), void *input);
-
-		// void something(void *data);
-	    
 //      The following function is used for debugging.
 	    void  AVL_Print    (void);
 	} ; // class AvlTree
@@ -945,58 +938,8 @@ void  AvlTree<TYPE, KTYPE> ::_print(NODE<TYPE> *root,
 } /* AVL_Print */
 
 
-// MY STUFF
-
-template <class TYPE, class KTYPE>
-bool   AvlTree<TYPE, KTYPE>
-::AVL_RetrieveInsert(KTYPE   key, TYPE& dataOut)
-{
-	//	Local Definitions
-	NODE<TYPE> *node;
-
-	//	Statements 
-	if (!tree)
-		return false;
-
-	node = _retrieve(key, tree);
-	if (node)
-	{
-		node->data = dataOut;
-		return true;
-	} // if found
-	else
-		return false;
-}	//  AVL_Retrieve 
 
 
 
-template <class TYPE, class KTYPE>
-void  AvlTree<TYPE, KTYPE>
-::search(string input)
-{
-	_traversal(tree, input);
-}
-
-
-
-template <class TYPE, class KTYPE>
-void  AvlTree<TYPE, KTYPE>
-::_traversal( NODE<TYPE> *root, string input)
-{
-	//	Statements
-	if(root)
-	{
-		
-		_traversal(root->left, input);
-
-		if (root->data.key.substr(0, input.length() ) == input)
-		{
-			cout << root->data.key << endl;
-		}
-		
-		_traversal(root->right, input);
-	} //  if
-	return;
-}	//  _traversal
 
 
