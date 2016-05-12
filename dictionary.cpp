@@ -134,7 +134,7 @@ void Dictionary::search(string input)
 
 	for (int i = 0; i < 3 && !pq.empty(); i++)
 	{
-		cout << pq.top().key << endl;
+		cout << pq.top().key << " (" << pq.top().data << ")" << endl;
 		pq.pop();
 	}
 
@@ -149,7 +149,10 @@ void Dictionary::search(string input)
 void _save(DATA ss)
 {
 	FOUT << ss.key << endl;
+	
 	FOUT << ss.data << endl;
+	cout << ss.key << endl;
+	cout << ss.data << endl;
 }
 
 
@@ -199,3 +202,15 @@ void Dictionary::importDictionary()
 
 	printf("Dictionary successfully loaded\n");
 }
+
+
+void Dictionary::deleteLowFrequency()
+{
+	// if the tree isnt empty
+	int frequency;
+
+	printf("Enter the frequency:\n");
+	cin >> frequency;
+	_dictionary.deleteLowFrequency(frequency);
+}
+

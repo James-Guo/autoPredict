@@ -68,7 +68,7 @@ void Predict::printMenu()
 			predictWord();
 			break;
 		case 8:
-			cout << "Impliment delete low frequency words from dictionary" << endl;
+			_dictionary.deleteLowFrequency();
 			break;
 		case 9:
 			cout << "Exiting program" << endl;

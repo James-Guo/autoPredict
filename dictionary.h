@@ -19,6 +19,10 @@ public:
 	void search(string input);
 
 	void importDictionary();
+
+	void deleteLowFrequency();
+
+
 	
 
 	void exportDictionary();
