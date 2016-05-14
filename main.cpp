@@ -29,6 +29,10 @@ int main()
 {
 	Predict p;
 	p.printMenu();
+	/*Dictionary d;
+	d.addToDictionary();
+	d.exportDictionary();*/
+	//d._dictionary.breadthFirstTraverse();
 	// p.predictWord();
 	//p._dictionary.exportDictionary();
 	// p._dictionary.importDictionary();

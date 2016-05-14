@@ -24,6 +24,7 @@ private:
 	void _traversal(NODE<TYPE>* root, string input);
 	void _traversalSearch(NODE<TYPE>* root, string input, priority_queue<TYPE, vector<TYPE>, dataComparision> *pq);
 	void _deleteLowFrequency(NODE<TYPE>* root, int frequency);
+	void _breadthFirstTraverse(void(*process)(TYPE dataProc), NODE<TYPE>* root);
 public:
 
 	
@@ -31,6 +32,8 @@ public:
 
 	
 	void search(string input, priority_queue<TYPE, vector<TYPE>, dataComparision> *pq);
+
+	void breadthFirstTraverse(void(*process)(TYPE dataProc));
 
 	bool AVL_RetrieveInsert(KTYPE   key, TYPE& dataOut);
 	
@@ -62,42 +65,6 @@ bool   AvlTreeExt<TYPE, KTYPE>
 	else
 		return false;
 }	//  AVL_Retrieve 
-
-//template<class TYPE, class KTYPE>
-//void AvlTreeExt<TYPE, KTYPE>::_deleteLowFrequency(NODE<TYPE>* root, int frequency)
-//{
-//	if (root != NULL)
-//	{
-//		cout << "Currently at: " << root->data.key << endl;
-//		bool shorter;
-//		bool success;
-//
-//		NODE<TYPE>  *newRoot;
-//
-//		_deleteLowFrequency(root->left, frequency);
-//
-//		if (root->data.data <= frequency)
-//		{
-//			
-//			cout << "Attemping to delete: " << root->data.key << endl;
-//			newRoot = _delete(root, root->data.key, shorter, success);	
-//
-//			if (success)
-//			{
-//				cout << "Delete successful" << endl;
-//				cout << root->data.key << " has been deleted" << endl;
-//				tree = newRoot;
-//				count--;
-//				_deleteLowFrequency(tree, frequency);
-//				return;
-//			}
-//		}
-//
-//		_deleteLowFrequency(root->right, frequency);
-//	} //  if
-//	return;
-//}
-
 
 template<class TYPE, class KTYPE>
 void AvlTreeExt<TYPE, KTYPE>::deleteLowFrequency(int frequency)
@@ -198,4 +165,53 @@ void AvlTreeExt<TYPE, KTYPE>::search(string input, priority_queue<TYPE, vector<T
 	_traversalSearch(tree, input, pq);
 }
 
+template<class TYPE, class KTYPE>
+void AvlTreeExt<TYPE, KTYPE>::breadthFirstTraverse(void(*process)(TYPE dataProc))
+{
+	_breadthFirstTraverse(process, tree);
+}
 
+
+
+
+template<class TYPE, class KTYPE>
+void AvlTreeExt<TYPE, KTYPE>::_breadthFirstTraverse(void(*process)(TYPE dataProc), NODE<TYPE> *root)
+{
+	queue<NODE<DATA>*> q;
+
+	if (root)
+	{
+		q.push(root);
+		process(root->data);
+	}
+	else
+		cout << "Tree is empty" << endl;
+
+	while (!q.empty())
+	{
+		const NODE<TYPE>* const temp_node = q.front();
+		q.pop();
+
+		if (temp_node->left)
+		{
+			q.push(temp_node->left);
+			process(temp_node->left->data);
+	
+
+		}
+
+
+		if (temp_node->right)
+		{
+			q.push(temp_node->right);
+			process(temp_node->right->data);
+
+		}
+	
+
+	}
+
+
+
+
+}

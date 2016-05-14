@@ -151,8 +151,8 @@ void _save(DATA ss)
 	FOUT << ss.key << endl;
 	
 	FOUT << ss.data << endl;
-	cout << ss.key << endl;
-	cout << ss.data << endl;
+	//cout << ss.key << endl;
+	//cout << ss.data << endl;
 }
 
 
@@ -163,7 +163,7 @@ void Dictionary::exportDictionary()
 	if (FOUT.fail())
 		cout << "Output file opening failed.\n";
 
-	_dictionary.AVL_Traverse(_save);
+	_dictionary.breadthFirstTraverse(_save);
 	FOUT.close();
 
 	printf("Dictionary successfully saved\n");
