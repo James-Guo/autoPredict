@@ -21,33 +21,37 @@ template <class TYPE, class KTYPE>
 class AvlTreeExt: public AvlTree< TYPE, KTYPE>
 {
 private:
+	// for prediction
 	void _traversal(NODE<TYPE>* root, string input);
+
+	// for prediction
 	void _traversalSearch(NODE<TYPE>* root, string input, priority_queue<TYPE, vector<TYPE>, dataComparision> *pq);
-	void _deleteLowFrequency(NODE<TYPE>* root, int frequency);
+
 	void _breadthFirstTraverse(void(*process)(TYPE dataProc), NODE<TYPE>* root);
+
+	// for deletion
+	void _traversal(NODE<TYPE>* root, int frequency, vector<DATA>& v);
+
 public:
-
+	void search(string input);	
 	
-	void search(string input);
-
-	
+	// for deletion
 	void search(string input, priority_queue<TYPE, vector<TYPE>, dataComparision> *pq);
 
 	void breadthFirstTraverse(void(*process)(TYPE dataProc));
 
-	bool AVL_RetrieveInsert(KTYPE   key, TYPE& dataOut);
+	bool update(KTYPE   key, TYPE& dataOut);
 	
 
 	
 	void deleteLowFrequency(int frequency);
-	void _traversal(NODE<TYPE>* root, int frequency, vector<DATA>& v);
-	
+
 
 };
 
 template <class TYPE, class KTYPE>
 bool   AvlTreeExt<TYPE, KTYPE>
-::AVL_RetrieveInsert(KTYPE   key, TYPE& dataOut)
+::update(KTYPE   key, TYPE& dataOut)
 {
 	//	Local Definitions
 	NODE<TYPE> *node;
@@ -59,7 +63,7 @@ bool   AvlTreeExt<TYPE, KTYPE>
 	node = _retrieve(key, tree);
 	if (node)
 	{
-		node->data = dataOut;
+		node->data.data = dataOut.data;
 		return true;
 	} // if found
 	else
@@ -70,14 +74,13 @@ template<class TYPE, class KTYPE>
 void AvlTreeExt<TYPE, KTYPE>::deleteLowFrequency(int frequency)
 {
 	vector<DATA> deletionVector;
+
 	_traversal(tree, frequency, deletionVector);
+
 	for (int i = 0; i < deletionVector.size(); i++)
 	{
 		AVL_Delete(deletionVector[i].key);
-	}
-		
-
-
+	}		
 }
 
 
@@ -196,8 +199,6 @@ void AvlTreeExt<TYPE, KTYPE>::_breadthFirstTraverse(void(*process)(TYPE dataProc
 		{
 			q.push(temp_node->left);
 			process(temp_node->left->data);
-	
-
 		}
 
 
@@ -205,13 +206,6 @@ void AvlTreeExt<TYPE, KTYPE>::_breadthFirstTraverse(void(*process)(TYPE dataProc
 		{
 			q.push(temp_node->right);
 			process(temp_node->right->data);
-
-		}
-	
-
+		}	
 	}
-
-
-
-
 }

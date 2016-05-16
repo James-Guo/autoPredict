@@ -25,6 +25,51 @@ void Dictionary::addToDictionary()
 		cout << "Input file opening failed.\n";
 		exit(1);
 	}
+	
+	while (!fin.eof()) {
+		DATA newItem;
+
+		fin >> newItem.key;
+
+		// Removes special characters
+		newItem.key = trim(newItem.key);	
+
+		newItem.data = 1;
+	
+		// If word isnt in tree, insert
+		if (!_dictionary.AVL_Retrieve(newItem.key, newItem))
+		{
+			_dictionary.AVL_Insert(newItem);
+		}
+		else
+		{
+			newItem.data++;
+			_dictionary.update(newItem.key, newItem);
+		}		
+	}
+
+	printf("%s successfully read\n", input.c_str());
+
+	fin.close();
+}
+
+
+
+
+
+void Dictionary::addToDictionaryPhrases()
+{
+	string input;
+	printf("Enter the file you would like to read from:\n");
+	cin >> input;
+
+	ifstream fin;
+
+	fin.open(input);
+	if (fin.fail()) {
+		cout << "Input file opening failed.\n";
+		exit(1);
+	}
 
 	int i = 0;
 	string phrase[3];
@@ -50,37 +95,38 @@ void Dictionary::addToDictionary()
 		if (arrayFull)
 		{
 			DATA phraseData;
-			DATA temp1;			
-			completePhrase = phrase[i%3] + " " + phrase[(i + 1)%3] + " " + phrase[(i + 2)%3 ];
-			// cout << completePhrase << endl;
+			
+			// This is used to put the words in the order they are read forming a phrase.
+			completePhrase = phrase[i % 3] + " " + phrase[(i + 1)%3] + " " + phrase[(i + 2)%3 ];
+			
 			phraseData.key = completePhrase;
 			phraseData.data = 1;
 
-			if (!_dictionary.AVL_Retrieve(phraseData.key, temp1))
+			if (!_dictionary.AVL_Retrieve(phraseData.key, phraseData))
 			{
 				_dictionary.AVL_Insert(phraseData);
 			}
 			else
 			{
-				temp1.data++;
-				_dictionary.AVL_RetrieveInsert(newItem.key, temp1);
+				phraseData.data++;
+				_dictionary.update(newItem.key, phraseData);
 			}
 		}
 
 		newItem.data = 1;
-		DATA temp2;
+		
 		// for inserting words
-		if (!_dictionary.AVL_Retrieve(newItem.key, temp2))
+		if (!_dictionary.AVL_Retrieve(newItem.key, newItem))
 		{
 			_dictionary.AVL_Insert(newItem);
 		}
 		else
 		{
-			temp2.data++;
-			_dictionary.AVL_RetrieveInsert(newItem.key, temp2);
+			newItem.data++;
+			_dictionary.update(newItem.key, newItem);
 		}
-		i++;
 
+		i++;
 	}
 
 	printf("%s successfully read\n", input.c_str());
@@ -104,14 +150,12 @@ string Dictionary::trim(string input)
 		return ss.str();
 	else
 		return "";
-
 }
 
 
 void _print(DATA ss)
 {
 	cout << ss.key << ": " << ss.data << endl;
-
 }
 
 void Dictionary::printDictionary()
@@ -138,11 +182,8 @@ void Dictionary::search(string input)
 		pq.pop();
 	}
 
-	cout << "...and " << pq.size() << " other entries" << endl << endl;
+	cout << "...and " << pq.size() << " other entries" << endl << endl;	
 	
-	
-	// _dictionary.search(input);
-		
 }
 
 // Used for exporting dictionary
@@ -181,7 +222,7 @@ void Dictionary::importDictionary()
 
 	while (!fin.eof() ) {
 		DATA newItem;
-		DATA temp;
+	
 		string strTemp;
 		getline(fin, newItem.key);
 
@@ -192,7 +233,7 @@ void Dictionary::importDictionary()
 		getline(fin, strTemp);
 		newItem.data = stoi(strTemp);
 	
-		if (!_dictionary.AVL_Retrieve(newItem.key, temp))
+		if (!_dictionary.AVL_Retrieve(newItem.key, newItem))
 		{
 			_dictionary.AVL_Insert(newItem);
 		}		
@@ -206,7 +247,6 @@ void Dictionary::importDictionary()
 
 void Dictionary::deleteLowFrequency()
 {
-	// if the tree isnt empty
 	int frequency;
 
 	printf("Enter the frequency:\n");

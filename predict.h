@@ -4,13 +4,15 @@
 
 class Predict
 {
+private:
+	Dictionary _dictionary;
 
 public:
 	
 	void predictWord();
 	void printMenu();
 
-	Dictionary _dictionary;
+	
 
 
 };

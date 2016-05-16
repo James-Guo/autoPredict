@@ -49,10 +49,10 @@ void Predict::printMenu()
 			_dictionary.importDictionary();
 			break;
 		case 2:
-			cout << "Impliment learn dictionary from file (without phrases)" << endl;
+			_dictionary.addToDictionary();
 			break;
 		case 3:
-			_dictionary.addToDictionary();
+			_dictionary.addToDictionaryPhrases();
 			break;
 		case 4:
 			_dictionary.exportDictionary();
@@ -64,7 +64,6 @@ void Predict::printMenu()
 			_dictionary.printMetaData();
 			break;
 		case 7:
-			cout << "Impliment guess word" << endl;
 			predictWord();
 			break;
 		case 8:

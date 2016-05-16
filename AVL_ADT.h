@@ -159,9 +159,6 @@ NODE<TYPE>*  AvlTree<TYPE,  KTYPE>
 	} //  if NULL tree 
 
 
-
-
-
 	if (newPtr->data.key < root->data.key)
 	   {
 

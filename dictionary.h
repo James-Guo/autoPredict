@@ -9,27 +9,27 @@ using namespace std;
 class Dictionary
 {
 private:
-
+	AvlTreeExt<DATA, string> _dictionary;
+	
+	string trim(string input);
+	
 public:
 	void addToDictionary();
-	string trim(string input);
-	AvlTreeExt<DATA, string> _dictionary;
+	void addToDictionaryPhrases();	
+	
 	void printDictionary();
 	void printMetaData();
+	
+	void deleteLowFrequency();
+
 	void search(string input);
 
 	void importDictionary();
-
-	void deleteLowFrequency();
-
-
-	
-
 	void exportDictionary();
 	
 
 
-private:
+
 
 
 };
